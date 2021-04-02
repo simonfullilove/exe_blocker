@@ -4,12 +4,13 @@ import os
 import win32com.shell.shell as shell
 import tkinter as tk
 
+# initialises TKinter and plots a canvas
 root = tk.Tk()
 root.title('Exe Blocker')
-
 canvas1 = tk.Canvas(root, width=300, height=0)
 canvas1.pack()
 
+# function to block all executables in a given directory from sending network traffic
 def block_exes(path):
     # crawls path directory and creates array of executables found in it and subdirectories
     exes = []
@@ -32,20 +33,23 @@ def block_exes(path):
     output.insert(tk.END, str(len(exes)) + ' files blocked!' + '\n')
     output.see(tk.END)
 
+# function for button to choose directory. calls block_exes on the provided directory.
 def choose_directory():
     dirpath = filedialog.askdirectory(title='Choose a folder')
     dirpath = dirpath.replace('/','\\')
     block_exes(dirpath)
 
+# creates button for selecting directory
 button1 = tk.Button(text='Select Directory...', command=choose_directory, bg='white', fg='black')
 button1.pack(padx = 5, anchor='nw')
 
+# plots space for log
 canvas1 = tk.Canvas(root, width=300, height=0)
-canvas1.pack()
-
+canvas1.pack() 
 output = tk.Text(root,width=120,height=30, bg='white', fg='black')
 output.pack()
 
+# adds label text to UI
 label1 = tk.Label(root, text="Exe Blocker v1.0")
 label1.pack()
 
